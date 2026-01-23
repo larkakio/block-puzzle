@@ -26,9 +26,7 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "fc:miniapp": JSON.stringify(embedConfig),
     "fc:frame": JSON.stringify(embedConfig),
-    ...(process.env.NEXT_PUBLIC_BASE_APP_ID
-      ? { "base:app_id": process.env.NEXT_PUBLIC_BASE_APP_ID }
-      : {}),
+    "base:app_id": process.env.NEXT_PUBLIC_BASE_APP_ID || "6973bb2d3a92926b661fd227",
   },
   openGraph: {
     title: "Block Puzzle",
