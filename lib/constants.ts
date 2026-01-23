@@ -1,4 +1,4 @@
-import type { Tetromino, ScoringRules } from "@/types/game";
+import type { Tetromino, ScoringRules, TetrominoType } from "@/types/game";
 
 export const COLS = 10;
 export const ROWS = 20;
@@ -77,4 +77,4 @@ export const TETROMINOS: Record<string, Tetromino> = {
   },
 };
 
-export const TETROMINO_KEYS = Object.keys(TETROMINOS) as (keyof typeof TETROMINOS)[];
+export const TETROMINO_KEYS: TetrominoType[] = Object.keys(TETROMINOS) as TetrominoType[];
