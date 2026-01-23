@@ -1,6 +1,6 @@
 const ROOT_URL =
   process.env.NEXT_PUBLIC_APP_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  "https://block-puzzle-alpha.vercel.app";
 
 export const miniappConfig = {
   accountAssociation: {
@@ -13,7 +13,11 @@ export const miniappConfig = {
     name: "Block Puzzle",
     subtitle: "Classic block puzzle game",
     description: "Stack, clear lines, and compete. A modern block puzzle with smooth animations and Web3 on Base.",
-    screenshotUrls: [`${ROOT_URL}/hero-image.png`],
+    screenshotUrls: [
+      `${ROOT_URL}/screenshot-1.png`,
+      `${ROOT_URL}/screenshot-2.png`,
+      `${ROOT_URL}/hero-image.png`,
+    ],
     iconUrl: `${ROOT_URL}/icon.png`,
     splashImageUrl: `${ROOT_URL}/hero-image.png`,
     splashBackgroundColor: "#1a1625",
