@@ -1,11 +1,8 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Block Puzzle";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
-export default function HeroImage() {
+export async function GET() {
   const blocks = [
     { x: 3, y: 15, color: "#4ecdc4", shape: [[1,1,1,1]] },
     { x: 0, y: 17, color: "#ffd93d", shape: [[1,1],[1,1]] },
@@ -126,6 +123,12 @@ export default function HeroImage() {
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        "Content-Type": "image/png",
+      },
+    }
   );
 }
