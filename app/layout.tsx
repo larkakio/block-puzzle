@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { embedConfig, ROOT_URL } from "@/lib/miniapp-config";
-import { FarcasterReady } from "@/components/FarcasterReady";
+import { ROOT_URL } from "@/lib/miniapp-config";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
@@ -24,8 +24,6 @@ export const metadata: Metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "fc:miniapp": JSON.stringify(embedConfig),
-    "fc:frame": JSON.stringify(embedConfig),
     "base:app_id": process.env.NEXT_PUBLIC_BASE_APP_ID || "6973bb2d3a92926b661fd227",
   },
   openGraph: {
@@ -39,8 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`}>
-        <FarcasterReady />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

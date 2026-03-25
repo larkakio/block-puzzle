@@ -1,64 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
-interface User {
-  fid: number;
-  username?: string;
-  displayName?: string;
-  pfpUrl?: string;
-}
-
-interface SDKActions {
-  ready: () => Promise<void>;
-  openUrl: (url: string) => Promise<void>;
-  close?: () => Promise<void>;
-}
-
+/** Wallet-centric identity for Base App (replaces Farcaster mini-app context). */
 export function useFarcasterSDK() {
-  const [actions, setActions] = useState<SDKActions | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { address } = useAccount();
 
-  useEffect(() => {
-    import("@farcaster/miniapp-sdk")
-      .then(async (m) => {
-        setActions(m.sdk?.actions ?? null);
-        try {
-          const ctx = await (m.sdk as { context?: Promise<{ user?: User }> }).context;
-          if (ctx?.user) setUser(ctx.user);
-        } catch {
-          // ignore
-        } finally {
-          setIsLoading(false);
-        }
-      })
-      .catch(() => setIsLoading(false));
-  }, []);
+  const user = address
+    ? {
+        fid: 0,
+        username: undefined as string | undefined,
+        displayName: `${address.slice(0, 6)}…${address.slice(-4)}`,
+        pfpUrl: undefined as string | undefined,
+      }
+    : null;
 
   const openUrl = async (url: string) => {
-    try {
-      if (actions?.openUrl) {
-        await actions.openUrl(url);
-      } else {
-        window.open(url, "_blank");
-      }
-    } catch {
-      window.open(url, "_blank");
-    }
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const close = async () => {
-    try {
-      if (actions?.close) {
-        await actions.close();
-      } else {
-        window.close();
-      }
-    } catch {
-      window.close();
-    }
+    /* no-op in standard web */
   };
 
-  return { actions, user, isLoading, openUrl, close };
+  return {
+    actions: null,
+    user,
+    isLoading: false,
+    openUrl,
+    close,
+  };
 }
